@@ -1,9 +1,9 @@
 <% include ./partials/header.ejs %>
 
 
-<table class="table table-dark">
+<table class="table ">
    <thead>
-      <tr>
+         <tr class='bg-dark text-white'>
          <th scope="col">First</th>
          <th scope="col">Last</th>
          <th scope="col">Email</th>
@@ -23,7 +23,7 @@
          <td><%= merchant.doc_type %></td>
          <td><%= merchant.doc_num %></td>
          <td>
-            <div class="card w-20">
+            <div class="card mw-25 p-1">
                <a href='<%=merchant.doc_image%>'>
                   <img class="card-img-top" src="<%= merchant.doc_image %>">
                </a>
@@ -34,9 +34,9 @@
       </tr>
    </tbody>
 </table>
-<table class="table table-dark">
+<table class="table">
    <thead>
-      <tr>
+         <tr class='bg-dark text-white'>
          <th scope="col">Adress</th>
          <th scope="col">Country</th>
          <th scope="col">City</th>
@@ -53,7 +53,7 @@
          <td><%= merchant.state %></td>
          <td><%= merchant.post_code %></td>
          <td>
-            <div class="card w-20">
+            <div class="card mw-25 p-1">
                   <a href='<%=merchant.util_image%>'>
                      <img class="card-img-top" src="<%= merchant.util_image %>">
                   </a>
@@ -62,9 +62,9 @@
       </tr>
    </tbody>
 </table>
-<table class="table table-dark">
+<table class="table">
    <thead>
-      <tr>
+         <tr class='bg-dark text-white'>
          <th scope="col">Business name</th>
          <th scope="col">Registration number</th>
          <th scope="col">Webpage</th>
@@ -80,9 +80,9 @@
       </tr>
    </tbody>
 </table>
-<table class="table table-dark">
+<table class="table">
    <thead>
-      <tr>
+         <tr class='bg-dark text-white'>
          <th scope="col">Adress</th>
          <th scope="col">Country</th>
          <th scope="col">City</th>
