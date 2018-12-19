@@ -29,8 +29,9 @@ router.get('/upload', function(req, res) {
 var fieldsUpload = upload.fields([{ name: 'image1', maxCount: 1 }, { name: 'image2', maxCount: 1 }])
 router.post('/upload', fieldsUpload, function (req, res, next) {
    console.log(req.body.email);
-   console.log(req.files['image1'][0].path)
-   console.log(req.files['image2'][0].path)
+   console.log(req.files['image1'][0].path);
+   console.log(req.files['image2'][0].path);
+   console.log("DOC: " + req.body.doc_type);
    // console.log("FILE: " + req.filesimage);
    // for(var i = 0; i < req.files.length; i++) {
    //    console.log("file path: " + req.files[i].path);

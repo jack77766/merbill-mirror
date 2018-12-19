@@ -55,6 +55,7 @@ router.post('/merchant_personal_app',fieldsUpload,  function(req, res, next) {
                               last_name:  req.body.last_name,
                               email:      req.body.email, 
                               phone:      req.body.phone, 
+                              doc_type:   req.body.doc_type,
                               doc_num:    req.body.doc_num, 
                               doc_image:  doc_image_url,  
                               address:    req.body.address, 
