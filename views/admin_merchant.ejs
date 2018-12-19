@@ -1,0 +1,136 @@
+<% include ./partials/header.ejs %>
+
+
+<table class="table table-dark">
+   <thead>
+      <tr>
+         <th scope="col">First</th>
+         <th scope="col">Last</th>
+         <th scope="col">Email</th>
+         <th scope="col">Phone number</th>
+         <th scope="col">Document</th>
+         <th scope="col">Document number</th>
+         <th scope="col">Document image</th>
+         <!-- <th scope="col">view/edit</th> -->
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><%= merchant.first_name %></td>
+         <td><%= merchant.last_name %></td>
+         <td><%= merchant.email %></td>
+         <td><%= merchant.phone %></td>
+         <td><%= merchant.doc_type %></td>
+         <td><%= merchant.doc_num %></td>
+         <td>
+            <div class="card w-20">
+               <a href='<%=merchant.doc_image%>'>
+                  <img class="card-img-top" src="<%= merchant.doc_image %>">
+               </a>
+            </div>
+         </td>
+         <!-- <td><img src='<%= merchant.doc_image %>'></td> -->
+         <!-- <td><a href='/admin/<%= merchant._id %>' class='btn btn-info'>view</a></td> -->
+      </tr>
+   </tbody>
+</table>
+<table class="table table-dark">
+   <thead>
+      <tr>
+         <th scope="col">Adress</th>
+         <th scope="col">Country</th>
+         <th scope="col">City</th>
+         <th scope="col">State</th>
+         <th scope="col">Postal Code</th>
+         <th scope="col">Utility image</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><%= merchant.address %></td>
+         <td><%= merchant.country %></td>
+         <td><%= merchant.city %></td>
+         <td><%= merchant.state %></td>
+         <td><%= merchant.post_code %></td>
+         <td>
+            <div class="card w-20">
+                  <a href='<%=merchant.util_image%>'>
+                     <img class="card-img-top" src="<%= merchant.util_image %>">
+                  </a>
+            </div>
+         </td>
+      </tr>
+   </tbody>
+</table>
+<table class="table table-dark">
+   <thead>
+      <tr>
+         <th scope="col">Business name</th>
+         <th scope="col">Registration number</th>
+         <th scope="col">Webpage</th>
+         <th scope="col">Phone</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><%= business.name %></td>
+         <td><%= business.registration_number %></td>
+         <td><%= business.web_page %></td>
+         <td><%= business.phone %></td>
+      </tr>
+   </tbody>
+</table>
+<table class="table table-dark">
+   <thead>
+      <tr>
+         <th scope="col">Adress</th>
+         <th scope="col">Country</th>
+         <th scope="col">City</th>
+         <th scope="col">State</th>
+         <th scope="col">Postal Code</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><%= business.address %></td>
+         <td><%= business.country %></td>
+         <td><%= business.city %></td>
+         <td><%= business.state %></td>
+         <td><%= business.post_code %></td>
+      </tr>
+   </tbody>
+</table>
+<!-- <table class="table table-dark">
+      <thead>
+         <tr>
+            <% for(var i=0; i < business.images.length; i++ ){ %>
+             <th scope="col">Image <%=i%></th>
+            <% } %>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <% for(var i=0; i < business.images.length; i++ ){ %>
+               <td><img src='<%= business.images[i] %>'></td>
+            <% } %>
+         </tr>
+      </tbody>
+   </table> -->
+
+   <div class="card-group">
+      <% business.images.forEach(function(image_url){ %>
+      <div class='col-md-4 col-sm-6'>
+         <div class="card">
+            <a href='<%=image_url%>'>
+               <img class="card-img-top" src="<%= image_url %>">
+            </a>
+               <!-- <div class="card-body">
+             <h5 class="card-title">Card title</h5>
+           </div> -->
+         </div>
+      </div>
+      <% }) %>
+   </div>
+
+
+<% include ./partials/footer.ejs %>

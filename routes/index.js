@@ -23,10 +23,11 @@ router.get('/admin', function(req, res) {
 
 //ADMIN MERCHANT
 router.get('/admin/:id', function(req, res) {
-   Merchant.findById(req.params.id, function(err, merchant) {
-      var user = merchant.user.id;
+   Merchant.findById(req.params.id, function(err, foundMerchant) {
+      var user = foundMerchant.user.id;
       Business.findOne({'user.id': user}, function(err, foundBusiness) {
-         res.send("Found business: " + foundBusiness.name)
+         // res.send("Found business: " + foundBusiness.name)
+         res.render('admin_merchant', {merchant: foundMerchant, business: foundBusiness})
       });
    });
 });
