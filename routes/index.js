@@ -1,14 +1,36 @@
 var express     = require('express');
 var router      = express.Router();
-var passport    = require('passport')
+var passport    = require('passport');
 
-
-
+var Merchant    = require('../models/merchant.js');
+var User        = require('../models/user.js');
+var Business    = require('../models/business.js');
 
 //INDEX PAGE
 router.get('/', function(req, res) {
    res.render('index');
 });
+
+//ADMIN PAGE
+router.get('/admin', function(req, res) {
+   Merchant.find({}, function(err, merchants) {
+      if(err) console.log(err);
+      else {
+         res.render('admin', {merchants: merchants});
+      }
+   })
+});
+
+//ADMIN MERCHANT
+router.get('/admin/:id', function(req, res) {
+   Merchant.findById(req.params.id, function(err, merchant) {
+      var user = merchant.user.id;
+      Business.findOne({'user.id': user}, function(err, foundBusiness) {
+         res.send("Found business: " + foundBusiness.name)
+      });
+   });
+});
+
 
 //LOGIN PAGE
 router.get('/login', function(req,res) {
