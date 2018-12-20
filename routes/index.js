@@ -6,6 +6,8 @@ var Merchant    = require('../models/merchant.js');
 var User        = require('../models/user.js');
 var Business    = require('../models/business.js');
 
+var middleware  = require('../middleware')
+
 //INDEX PAGE
 router.get('/', function(req, res) {
    res.render('index');
@@ -26,7 +28,10 @@ router.get('/admin/:id', function(req, res) {
    Merchant.findById(req.params.id, function(err, foundMerchant) {
       var id = foundMerchant.user.id;
       Business.findOne({'user.id': id}, function(err, foundBusiness) {
-         res.render('admin_merchant', {merchant: foundMerchant, business: foundBusiness})
+         var doc_image  = pdfThumbnail(foundMerchant.doc_image);
+         var util_image = pdfThumbnail(foundMerchant.util_image);
+         res.render('admin_merchant', {merchant: foundMerchant, business: foundBusiness, 
+                                       doc_image: doc_image, util_image: util_image })
       });
    });
 });
@@ -69,6 +74,17 @@ router.post('/register', function(req, res) {
       }
    })
 });
+
+function pdfThumbnail(image_url) {
+   var ext  = image_url.substring(image_url.lastIndexOf('.'));
+   if((ext === '.pdf') || (ext === '.doc')) {
+      var TRANSFORM_URL = 'https://res.cloudinary.com/shimmyshimmycocobop/image/upload/w_120,h_180,c_fill/';
+      var filename = image_url.substring((image_url.lastIndexOf('/') +1), (image_url.length -4));
+      var full_url = TRANSFORM_URL + filename + ".png";
+      return full_url;
+   }
+   else return image_url;
+}
 
 
 module.exports = router;

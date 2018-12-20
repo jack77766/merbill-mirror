@@ -30,7 +30,6 @@
                 <label for='merchant[doc_type]'>Document Type</label>
                 <!-- TODO: Select saved value -->
                 <select name='merchant[doc_type]' class='form-control'>
-                    <% console.log("In pesonal app edit, merchants previous document was a: " + merchant.doc_type) %>
                     <% if(merchant.doc_type == 'Passport') { %>
                     <option selected value = 'Passport'>Passport</option>
                     <option value = 'ID'>Identification Document</option>
@@ -49,8 +48,8 @@
                 <label><strong>Doc Image</strong></label>
                 <!-- TODO: show saved image -->
                 <div class="card mw-25 p-1">
-                        <a href='<%=merchant.doc_image%>'>
-                                <img class="card-img-top" src="<%=merchant.doc_image%>">
+                        <a href='<%=doc_image%>'>
+                                <img class="card-img-top" src="<%=doc_image%>">
                         </a>
                 </div>
                 <input type="file" name="doc_image" class = 'btn btn-info' accept="image/*, text/*, .pdf">
@@ -85,8 +84,8 @@
                 <label><strong>Utility Image</strong></label>       
                 <!-- TODO show saved image    -->
                 <div class="card mw-25 p-1">
-                        <a href='<%=merchant.util_image%>'>
-                                <img class="card-img-top" src="<%=merchant.util_image%>">
+                        <a href='<%=util_image%>'>
+                                <img class="card-img-top" src="<%=util_image%>">
                         </a>
                 </div>
                 <input type="file" name="util_image" class = 'btn btn-info'                     accept="image/*, text/*, .pdf">

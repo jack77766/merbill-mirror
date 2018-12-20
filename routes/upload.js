@@ -30,21 +30,25 @@ var fieldsUpload = upload.fields([{ name: 'image1', maxCount: 1 }, { name: 'imag
 router.post('/upload', fieldsUpload, async function (req, res, next) {
 
    var upload1 = await uploadToCloudinary(req.files['image1'][0].path);
-   var upload2 = await uploadToCloudinary(req.files['image2'][0].path);
+   // var upload2 = await uploadToCloudinary(req.files['image2'][0].path);
    console.log("Url #1: " + upload1.secure_url);
-   console.log("Url #2: " + upload2.secure_url);
+   // console.log("Url #2: " + upload2.secure_url);
 
-   // for(var key in url1) {
-   //    console.log("Cloudinary url: " + key + " : " + url1[key]);
+   var url1 = upload1.secure_url;
+   var ext  = url1.substring(url1.lastIndexOf('.'));
+   console.log("File extension: " + ext)
+   if(ext === ".pdf") {
+      // var TRANSFORM_URL = 'https://res.cloudinary.com/shimmyshimmycocobop/image/upload/w_120,h_180,c_fill/';
+      var filename = url1.substring((url1.lastIndexOf('/') +1), (url1.length -4));
+      console.log("Filename: " + filename);
+      var full_url = res.locals.TRANSFORM_URL+filename+".png";
+      console.log("thumbnail url is: " + full_url);
+      res.redirect(full_url);
+   }
 
-   // }
-   // console.log("Cloudinary url: " + url1);
-   // var url2 = await uploadToCloudinary(req.files['image2'][0].path);
-   // console.log("Cloudinary url: " + url2);
-
-
-   res.send("Succesfull Upload"); 
-
+   else {
+      res.send("Succesfull Upload"); 
+   }
 });
 
 function uploadToCloudinary(image) {
@@ -55,23 +59,6 @@ function uploadToCloudinary(image) {
      })
    });
  }
-
-
-// async function uploadToCloudinary(image) {
-//    try{
-//       let url = await cloudinary.v2.uploader.upload(image);
-//       // , function(error, result) {
-//       //    if(error) {
-//       //       console.log(error);
-//       //    }
-//       //    else {
-//       //       console.log("Succesfully uploaded image to cloudinary!")
-//       //       //return result.secure_url;
-//       //    }
-//       // });
-//    }
-//    catch(err){ console.log(err)}
-// }
 
 function isLoggedIn(req, res, next) {
    if(req.isAuthenticated()) {
