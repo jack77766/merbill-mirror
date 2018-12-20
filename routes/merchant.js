@@ -27,12 +27,35 @@ var upload = multer({ storage: storage })
 
 //MERCHANT PAGE
 router.get('/merchant', function(req, res) {
-   res.render('merchant_personal_app');
+   Merchant.findOne({'user.id': req.user.id}, function(err, foundMerchant) {
+      if(!foundMerchant) {
+         res.render('merchant/personal_app_new');
+      }
+      else {
+         Business.findOne({'user.id': req.user.id}, function(err, foundBusiness) {
+            if(!foundBusiness) {
+               res.render('merchant/business_app_new');
+            }
+            else res.render('merchant/index')
+         });
+      }
+   });
 });
 
-//MERCHANT PERSONAL APP
+//MERCHANT PERSONAL APP EDIT
+router.get('/merchant/personal_app_edit', function(req, res) {
+   Merchant.findOne({'user.id':req.user.id}, function(err, foundMerchant) {
+      if(err) console.log(err);
+      else {
+         res.render('merchant/personal_app_edit', {merchant: foundMerchant});
+      }
+   })
+});
+
+
+//MERCHANT PERSONAL APP NEW
 var fieldsUpload = upload.fields([{ name: 'doc_image', maxCount: 1 }, { name: 'util_image', maxCount: 1 }]);
-router.post('/merchant_personal_app',fieldsUpload,  function(req, res, next) {
+router.post('/merchant/personal_app_new', fieldsUpload,  function(req, res, next) {
    var user = {
       id:       req.user.id, 
       username: req.user.username
@@ -73,7 +96,8 @@ router.post('/merchant_personal_app',fieldsUpload,  function(req, res, next) {
                }
                else {
                   console.log(createdMerchant);
-                  res.render('merchant_business_app', {merchant: createdMerchant});
+                  // User.findByIdAndUpdate(req.user.id, )
+                  res.render('merchant/business_app_new', {merchant: createdMerchant});
                }
             });
       });   
@@ -81,8 +105,36 @@ router.post('/merchant_personal_app',fieldsUpload,  function(req, res, next) {
 });
 
 
+//PERSONAL APP UPDATE
+router.put('/merchant/personal_app_edit', fieldsUpload, async function(req, res) {
+   var merchant = req.body.merchant;
+   var doc_image_url;
+   var util_image_url;
+   if(req.files['doc_image'][0]) {
+      //UPLOAD DOCUMENT IMAGE TO CLOUDINARY
+      let upload1 = await uploadToCloudinary(req.files['doc_image'][0].path);
+      doc_image_url = upload1.secure_url; 
+   }
+   if(req.files['util_image'][0]) {
+      //UPLOAD DOCUMENT IMAGE TO CLOUDINARY
+      let upload2 = await uploadToCloudinary(req.files['doc_image'][0].path);
+      util_image_url = upload2.secure_url; 
+   }
+   merchant.doc_image  = doc_image_url;
+   merchant.util_image = util_image_url;
+
+   console.log("Merchant: " + merchant.first_name + " " + merchant.last_name);
+   Merchant.findOneAndUpdate({'user.id':req.user.id}, merchant, function(err, updatedMerchant){
+      if(err) console.log(err);
+      else {
+         res.send("Succesfully update app");
+      }
+   });
+});
+
+
 //BUSINESS APP POST
-router.post('/merchant_business_app', upload.array('images' , 10),  async function(req, res, next) {
+router.post('/merchant/business_app_new', upload.array('images' , 10),  async function(req, res, next) {
 
    var user = {
       id:       req.user.id, 
@@ -121,7 +173,7 @@ router.post('/merchant_business_app', upload.array('images' , 10),  async functi
       else {
          console.log(createdBusiness);
          res.send("Business App Submited");
-         //res.render('merchant_business_app', {merchant: createdMerchant});
+         //res.render('merchant/business_app_new', {merchant: createdMerchant});
       }
    });
 });
@@ -135,6 +187,16 @@ function isLoggedIn(req, res, next) {
       res.redirect('/');
    }
 };
+
+function uploadToCloudinary(image) {
+   return new Promise((resolve, reject) => {
+     cloudinary.v2.uploader.upload(image, (err, url) => {
+       if (err) return reject(err);
+       resolve(url);
+     })
+   });
+ }
+
 
 // function uploadToCloudinary(image) {
 //    cloudinary.v2.uploader.upload(image, function(error, result) {

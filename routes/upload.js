@@ -27,32 +27,51 @@ router.get('/upload', function(req, res) {
 });
 
 var fieldsUpload = upload.fields([{ name: 'image1', maxCount: 1 }, { name: 'image2', maxCount: 1 }])
-router.post('/upload', fieldsUpload, function (req, res, next) {
-   console.log(req.body.email);
-   console.log(req.files['image1'][0].path);
-   console.log(req.files['image2'][0].path);
-   console.log("DOC: " + req.body.doc_type);
-   // console.log("FILE: " + req.filesimage);
-   // for(var i = 0; i < req.files.length; i++) {
-   //    console.log("file path: " + req.files[i].path);
+router.post('/upload', fieldsUpload, async function (req, res, next) {
+
+   var upload1 = await uploadToCloudinary(req.files['image1'][0].path);
+   var upload2 = await uploadToCloudinary(req.files['image2'][0].path);
+   console.log("Url #1: " + upload1.secure_url);
+   console.log("Url #2: " + upload2.secure_url);
+
+   // for(var key in url1) {
+   //    console.log("Cloudinary url: " + key + " : " + url1[key]);
+
    // }
-   
-   // cloudinary.v2.uploader.upload(req.file.path, function(error, result) {console.log(result, error)});
+   // console.log("Cloudinary url: " + url1);
+   // var url2 = await uploadToCloudinary(req.files['image2'][0].path);
+   // console.log("Cloudinary url: " + url2);
+
 
    res.send("Succesfull Upload"); 
-   // + " '\n File: " + req.file.fieldname + ", "
-   // + req.file.originalname + ", "
-   // + req.file.encoding + ", "
-   // + req.file.mimetype + ", "
-   // + req.file.size + ", " 
-   // + req.file.destination + ", "
-   // + req.file.filename + ", "
-   // + req.file.path + ", "
-   // + req.file.buffer + ", ");
-   // // req.file is the `avatar` file
-   // // req.body will hold the text fields, if there were any
-   
+
 });
+
+function uploadToCloudinary(image) {
+   return new Promise((resolve, reject) => {
+     cloudinary.v2.uploader.upload(image, (err, url) => {
+       if (err) return reject(err);
+       resolve(url);
+     })
+   });
+ }
+
+
+// async function uploadToCloudinary(image) {
+//    try{
+//       let url = await cloudinary.v2.uploader.upload(image);
+//       // , function(error, result) {
+//       //    if(error) {
+//       //       console.log(error);
+//       //    }
+//       //    else {
+//       //       console.log("Succesfully uploaded image to cloudinary!")
+//       //       //return result.secure_url;
+//       //    }
+//       // });
+//    }
+//    catch(err){ console.log(err)}
+// }
 
 function isLoggedIn(req, res, next) {
    if(req.isAuthenticated()) {
