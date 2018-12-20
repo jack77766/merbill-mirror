@@ -7,6 +7,8 @@ var cloudinary  = require('cloudinary');
 var Merchant = require('../models/merchant.js');
 var Business = require('../models/business.js');
 
+var myFunctions = require('../modules.js')
+
 
 
 //CLOUDINARY CONFIG
@@ -46,8 +48,8 @@ router.get('/merchant/personal_app_edit', function(req, res) {
    Merchant.findOne({'user.id':req.user.id}, function(err, foundMerchant) {
       if(err) console.log(err);
       else {
-         var doc_image  = pdfThumbnail(foundMerchant.doc_image);
-         var util_image = pdfThumbnail(foundMerchant.util_image);
+         var doc_image  = myFunctions.pdfThumbnail(foundMerchant.doc_image);
+         var util_image = myFunctions.pdfThumbnail(foundMerchant.util_image);
          res.render('merchant/personal_app_edit', {merchant: foundMerchant, 
                                                    doc_image: doc_image, util_image: util_image});
       }
@@ -132,7 +134,7 @@ router.get('/merchant/business_app_edit', function(req, res) {
          var image_urls = foundBusiness.images;
          var images = [];
          image_urls.forEach(function(url) {
-            images.push(pdfThumbnail(url));
+            images.push(myFunctions.pdfThumbnail(url));
          });
          res.render('merchant/business_app_edit', {business: foundBusiness, images:images});
       }
@@ -203,16 +205,7 @@ router.post('/merchant/business_app_new', upload.array('images' , 10),  async fu
    });
 });
 
-function pdfThumbnail(image_url) {
-   var ext  = image_url.substring(image_url.lastIndexOf('.'));
-   if((ext === '.pdf') || (ext === '.doc')) {
-      var TRANSFORM_URL = 'https://res.cloudinary.com/shimmyshimmycocobop/image/upload/w_120,h_180,c_fill/';
-      var filename = image_url.substring((image_url.lastIndexOf('/') +1), (image_url.length -4));
-      var full_url = TRANSFORM_URL + filename + ".png";
-      return full_url;
-   }
-   else return image_url;
-}
+
 
 function uploadToCloudinary(image) {
    return new Promise((resolve, reject) => {
