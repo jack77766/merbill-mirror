@@ -26,7 +26,6 @@ router.get('/admin/:id', function(req, res) {
    Merchant.findById(req.params.id, function(err, foundMerchant) {
       var id = foundMerchant.user.id;
       Business.findOne({'user.id': id}, function(err, foundBusiness) {
-         // res.send("Found business: " + foundBusiness.name)
          res.render('admin_merchant', {merchant: foundMerchant, business: foundBusiness})
       });
    });
@@ -62,11 +61,8 @@ router.post('/register', function(req, res) {
    var password = req.body.password;
    User.register(newUser, password, function(err, user) {
       if(err){
-         // console.log(req.body.username +":"+req.body.email+":"+req.body.password);
-         // console.log(err);
          return res.redirect('/register');
      } else {
-      console.log(req.body.username +":"+req.body.email+":"+req.body.password);
          passport.authenticate('local')(req, res, function(){
             res.redirect('/merchant');
          });
