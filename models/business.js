@@ -16,7 +16,7 @@ var BusinessSchema = new mongoose.Schema({
    state: String,
    post_code: Number,
    registration_number: Number,
-   web_page: String,
+   website: String,
    phone: Number,
    images: [{
       type: String

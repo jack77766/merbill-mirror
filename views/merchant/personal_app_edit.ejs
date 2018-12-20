@@ -28,7 +28,6 @@
         <!-- ID -->
         <div class='form-group'>
                 <label for='merchant[doc_type]'>Document Type</label>
-                <!-- TODO: Select saved value -->
                 <select name='merchant[doc_type]' class='form-control'>
                     <% if(merchant.doc_type == 'Passport') { %>
                     <option selected value = 'Passport'>Passport</option>
@@ -46,7 +45,6 @@
         </div>
         <div class='form-group'>
                 <label><strong>Doc Image</strong></label>
-                <!-- TODO: show saved image -->
                 <div class="card mw-25 p-1">
                         <a href='<%=doc_image%>'>
                                 <img class="card-img-top" src="<%=doc_image%>">
@@ -82,7 +80,6 @@
         <h5>Please upload an utility bill up to 3 months old which confirms the address you have provided above.</h5>
         <div class='form-group'>
                 <label><strong>Utility Image</strong></label>       
-                <!-- TODO show saved image    -->
                 <div class="card mw-25 p-1">
                         <a href='<%=util_image%>'>
                                 <img class="card-img-top" src="<%=util_image%>">

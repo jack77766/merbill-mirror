@@ -28,10 +28,22 @@ router.get('/admin/:id', function(req, res) {
    Merchant.findById(req.params.id, function(err, foundMerchant) {
       var id = foundMerchant.user.id;
       Business.findOne({'user.id': id}, function(err, foundBusiness) {
-         var doc_image  = pdfThumbnail(foundMerchant.doc_image);
-         var util_image = pdfThumbnail(foundMerchant.util_image);
+         if(foundMerchant.doc_image) {
+            var doc_image  = pdfThumbnail(foundMerchant.doc_image);
+         }
+         if(foundMerchant.util_image)  {
+            var util_image = pdfThumbnail(foundMerchant.util_image);
+         }
+         if(foundBusiness.images) {
+            var images = foundBusiness.images;
+            var newImages = [];
+            images.forEach(function(image) {
+               newImages.push(pdfThumbnail(image))
+            });
+         }
+
          res.render('admin_merchant', {merchant: foundMerchant, business: foundBusiness, 
-                                       doc_image: doc_image, util_image: util_image })
+                                       doc_image: doc_image, util_image: util_image, business_images:newImages })
       });
    });
 });

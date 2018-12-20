@@ -106,15 +106,12 @@
 
 <% if(business) { %>
    <div class="card-group">
-      <% business.images.forEach(function(image_url){ %>
+      <% business_images.forEach(function(image_url){ %>
       <!-- <div class='col-md-4 col-sm-6'> -->
          <div class="card mx-25 p-1">
             <a href='<%=image_url%>'>
                <img class="card-img-top" src="<%= image_url %>">
             </a>
-               <!-- <div class="card-body">
-             <h5 class="card-title">Card title</h5>
-           </div> -->
          </div>
       <!-- </div> -->
       <% }) %>

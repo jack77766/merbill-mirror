@@ -124,6 +124,43 @@ router.put('/merchant/personal_app_edit', fieldsUpload, async function(req, res)
    });
 });
 
+//BUSINESS APP EDIT
+router.get('/merchant/business_app_edit', function(req, res) {
+   Business.findOne({'user.id':req.user.id}, function(err, foundBusiness) {
+      if(err) console.log(err);
+      else {
+         var image_urls = foundBusiness.images;
+         var images = [];
+         image_urls.forEach(function(url) {
+            images.push(pdfThumbnail(url));
+         });
+         res.render('merchant/business_app_edit', {business: foundBusiness, images:images});
+      }
+   })
+});
+
+//BUSINESS APP UPDATE
+router.put('/merchant/business_app_edit', upload.array('images' , 10), async function(req, res) {
+   var business = req.body.business;
+   if(req.files) {
+      var imageArray = [];
+      for(var i = 0; i < req.files.length; i++) {
+         let upload = await uploadToCloudinary(req.files[i].path);
+         imageArray.push(upload.secure_url);
+      }
+      business.images = imageArray;
+   }
+
+   Business.findOneAndUpdate({'user.id':req.user.id}, business, function(err, updatedBusiness) {
+      if(err) console.log(err);
+      else {
+         console.log("Updated Business: " + updatedBusiness);
+         res.render('merchant/index')
+      }
+   });
+
+
+});
 
 //BUSINESS APP POST
 router.post('/merchant/business_app_new', upload.array('images' , 10),  async function(req, res, next) {
