@@ -142,7 +142,7 @@ router.get('/merchant/business_app_edit', function(req, res) {
 //BUSINESS APP UPDATE
 router.put('/merchant/business_app_edit', upload.array('images' , 10), async function(req, res) {
    var business = req.body.business;
-   if(req.files) {
+   if(req.files[0]) {
       var imageArray = [];
       for(var i = 0; i < req.files.length; i++) {
          let upload = await uploadToCloudinary(req.files[i].path);
@@ -186,7 +186,7 @@ router.post('/merchant/business_app_new', upload.array('images' , 10),  async fu
                      state: req.body.state, 
                      post_code: req.body.post_code, 
                      registration_number: req.body.registration_number,
-                     web_page: req.body.web_page, 
+                     website: req.body.website, 
                      phone: req.body.phone,
                      images: imageArray
    }
