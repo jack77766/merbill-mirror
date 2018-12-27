@@ -2,52 +2,58 @@
     
 
 <div class='container form-format'>
-    <div class='title-format'><h3>Please Enter your details</h3></div>
+    <div class='title-format'><h3 class='pt-3 pb-3'>Please Enter your details</h3></div>
     <form action="/merchant/business_app_new" method="POST" enctype="multipart/form-data">   
          <!-- BUSINESS INFO  -->
-        <div class='form-group'>    
-            <label>Business Name</label>
-            <input type='text' name='name' class='form-control' >
+        <div class='form-row bg-light'>
+            <div class='form-group col-md-6'>    
+                <label>Business Name</label>
+                <input type='text' name='name' class='form-control' >
+            </div>
+            <div class='form-group col-md-6'>    
+                <label>Business Registration Number</label>
+                <input type='number' name='registration_number' class='form-control' >
+            </div>
         </div>
-        <div class='form-group'>    
-            <label>Business Registration Number</label>
-            <input type='number' name='registration_number' class='form-control' >
-        </div>
-        <div class='form-group'>
+        <div class='form-row bg-light'>
+        <div class='form-group col-md-6'>
             <label>Business Website</label>
-            <input type='text' name='website' class='form-control' required>
+            <input type='text' name='website' class='form-control'>
         </div>
-
-        <div class='form-group'>
+        <div class='form-group col-md-6'>
                 <label>Business Phone Number</label>
                 <input type='number' name='phone' class='form-control'>
         </div>
-
+        </div>
         <!-- BUSINESS ADDRESS -->
-        <div class='form-group'>
-                <label>Address</label>
-                <input type='text' name='address' class='form-control'>
+        <div class='form-row bg-light'>
+            <div class='form-group col-md-10'>
+                    <label>Address</label>
+                    <input type='text' name='address' class='form-control'>
+            </div>
         </div>
-        <div class='form-group'>
-                <label>Country</label>
-                <input type='text' name='country' class='form-control'>
-        </div>
-        <div class='form-group'>
-                <label>City</label>
-                <input type='text' name='city' class='form-control'>
-        </div>
-        <div class='form-group'>
-                <label>State</label>
-                <input type='text' name='state' class='form-control'>
-        </div>
-        <div class='form-group'>
-                <label>Postal Code</label>
-                <input type='text' name='post_code' class='form-control'>
+        <div class='form-row bg-light'>
+            <div class='form-group col-md-3'>
+                    <label>Country</label>
+                    <input type='text' name='country' class='form-control'>
+            </div>
+            <div class='form-group col-md-3'>
+                    <label>City</label>
+                    <input type='text' name='city' class='form-control'>
+            </div>
+            <div class='form-group col-md-3'>
+                    <label>State</label>
+                    <input type='text' name='state' class='form-control'>
+            </div>
+            <div class='form-group col-md-3'>
+                    <label>Postal Code</label>
+                    <input type='text' name='post_code' class='form-control'>
+            </div>
         </div>
 
         
         <!-- IMAGES -->
-        <h3>Please upload all that apply:</h3>
+        <h3 class='pt-3 pb-3'>Please upload all that apply:</h3>
         <ul>
         <li><h6>Copy of Articles of Incorporation (or equivalent)</h6></li>
         <li><h6>Proof of URL ownership</h6></li>
@@ -58,8 +64,8 @@
         <li><h6>Certificate of Good Standing (up to 3 months old) - if applicable</h6></li>
         </ul>
         <div class='form-group'>
-           <label>Images</label>
-            <input type="file" name="images" accept="image/*, text/*, .pdf" class = 'btn btn-info' multiple required>
+           <label><strong>Images</strong></label>
+            <input type="file" name="images" accept="image/*, text/*, .pdf" class = 'btn btn-info m-2' multiple required>
         </div>
 
 
