@@ -17,7 +17,8 @@ User = require('./models/user')
 //ROUTES 
 var uploadRoutes   = require('./routes/upload.js'),
     merchantRoutes = require('./routes/merchant.js'),
-    indexRoutes    = require('./routes/index.js')
+    indexRoutes    = require('./routes/index.js'),
+    adminRoutes    = require('./routes/admin.js')
 
 
 //CONFIG
@@ -55,7 +56,9 @@ app.use(function(req, res, next){
 //PUT ROUTES INTO APP
 app.use(uploadRoutes);
 app.use(merchantRoutes);
+app.use(adminRoutes);
 app.use(indexRoutes);
+
 
 
 

@@ -1,6 +1,12 @@
 <% include ./partials/header.ejs %>
 
+<div class='container p-2'>
 
+   <a class="badge badge-pill badge-success mb-3" href='/admin/<%=merchant.id%>/fees'>Fees</a>
+   <a  class="badge badge-pill badge-success" 
+       href='/admin/<%=merchant.id%>/bank_accounts'>Bank Accounts</a>
+
+<!-- NAME &  DOC INFO -->
 <table class="table ">
    <thead>
       <tr class='bg-dark text-white'>
@@ -33,6 +39,7 @@
       </tr>
    </tbody>
 </table>
+<!-- ADDRESS INFO -->
 <table class="table">
    <thead>
       <tr class='bg-dark text-white'>
@@ -61,6 +68,7 @@
       </tr>
    </tbody>
 </table>
+<!-- BUSINESS INFO -->
 <table class="table">
    <thead>
          <tr class='bg-dark text-white'>
@@ -81,6 +89,7 @@
       </tr>
    </tbody>
 </table>
+<!-- BUSINESS ADDRESS  -->
 <table class="table">
    <thead>
          <tr class='bg-dark text-white'>
@@ -103,7 +112,7 @@
       </tr>
    </tbody>
 </table>
-
+<!-- BUSINESS DOC UPLOADS -->
 <% if(business) { %>
    <div class="card-group">
       <% business_images.forEach(function(image_url){ %>
@@ -118,5 +127,10 @@
    </div>
 <% } %>
 
+
+
+<!-- BANK ACCOUNTS -->
+
+</div>
 
 <% include ./partials/footer.ejs %>

@@ -1,0 +1,35 @@
+<% include ../partials/header.ejs %>
+
+<div class='container p-2'>
+
+   <a  class="badge badge-pill badge-success" 
+       href='/admin/<%=merchant.id%>'>Profile</a>
+   <a  class="badge badge-pill badge-success" 
+       href='/admin/<%=merchant.id%>/bank_accounts'>Bank Accounts</a>
+
+
+   <h4 class='mt-3 mb-3'>Fees for <%=merchant.first_name%> <%=merchant.last_name%></h4>
+   <!-- FEES -->
+<table class="table">
+      <thead>
+            <tr class='bg-dark text-white'>
+            <th scope="col">Deposit Fee</th>
+            <th scope="col">Withdrawal Fee</th>
+            <th scope="col">Percentage</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td><%= merchant.deposit_fee %></td>
+            <td><%= merchant.withdrawal_fee %></td>
+            <td><%= merchant.percentage %></td>
+         </tr>
+      </tbody>
+   </table>
+
+   <a class='btn btn-dark' href='/admin/<%=merchant.id%>/fees/set'>Set Fees</a>
+
+</div>
+
+
+<% include ../partials/footer.ejs %>

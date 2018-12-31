@@ -12,15 +12,26 @@ var MerchantSchema = new mongoose.Schema({
    last_name:  String,
    email:      String,
    phone:      Number,
+   //Document info
    doc_type:   String,
    doc_num:    Number,
    doc_image:  String,
+   //address
    address:    String,
    country:    String,
    city:       String,
    State:      String,
    post_code:  Number,
-   util_image: String
+   //image
+   util_image: String,
+   //FEES
+   deposit_fee: Number,
+   withdrawal_fee: Number,
+   percentage: Number,
+   bank_accounts: [{
+         type: mongoose.Schema.Types.ObjectId,
+         ref: 'Bank_Account'
+   }]
 });
 
 module.exports = mongoose.model("Merchant", MerchantSchema);

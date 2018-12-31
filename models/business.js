@@ -10,11 +10,13 @@ var BusinessSchema = new mongoose.Schema({
       username: String
    },
    name: String,
+   //address
    address: String,
    country: String,
    city: String,
    state: String,
    post_code: Number,
+   //business details
    registration_number: Number,
    website: String,
    phone: Number,

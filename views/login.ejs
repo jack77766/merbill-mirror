@@ -1,22 +1,18 @@
 <% include ./partials/header.ejs %>
     
-<div class='container'>
-    <div class='form-format'>
-        <div class='title-format'>
-            <h3>Please Login</h3>
+<div class='container p-2'>
+    <h3>Please Login</h3>
+    <form action='/login' method='POST'>
+        <div class='form-group'>    
+            <label>Username</label>
+            <input type='text' name='username' class='form-control'>
         </div>
-        <form action='/login' method='POST'>
-            <div class='form-group'>    
-                <label>Username</label>
-                <input type='text' name='username' class='form-control'>
-            </div>
-            <div class='form-group'>
-                <label>Password</label>
-                <input type='password' name='password' class='form-control'>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+        <div class='form-group'>
+            <label>Password</label>
+            <input type='password' name='password' class='form-control'>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
 
 <% include ./partials/footer.ejs %>

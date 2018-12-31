@@ -1,0 +1,38 @@
+<% include ../partials/header.ejs %>
+
+<div class='container p-2'>
+
+   <a  class="badge badge-pill badge-success" 
+       href='/admin/<%=merchant.id%>'>Profile</a>
+   <a  class="badge badge-pill badge-success" 
+       href='/admin/<%=merchant.id%>/bank_accounts'>Bank Accounts</a>
+
+
+   <h4 class='mt-3 mb-3'>Bank Accounts of: <%=merchant.first_name%> <%=merchant.last_name%></h4>
+   <!-- BANK ACCOUNTS -->
+
+<table class="table">
+      <thead>
+            <tr class='bg-dark text-white'>
+            <th scope="col">Account Holder</th>
+            <th scope="col">IBAN</th>
+            <th scope="col">Swift code</th>
+         </tr>
+      </thead>
+      <% for(account of bank_accounts) { %>
+      <tbody>
+         <tr>
+            <td><%= account.account_holder %></td>
+            <td><%= account.IBAN %></td>
+            <td><%= account.swift %></td>
+         </tr>
+      </tbody>
+      <% } %>
+   </table>
+
+   <a class='btn btn-dark' href='/admin/<%=merchant.id%>/bank_accounts/new'>Add Bank Account</a>
+
+</div>
+
+
+<% include ../partials/footer.ejs %>
