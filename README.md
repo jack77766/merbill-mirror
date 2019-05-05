@@ -1,0 +1,3 @@
+# merbill-mirror
+Site where users can upload there documents for opening a financial services account, and admin can reject, approve, etc...
+Site created with multer library and cloudinary for storing the images in the cloud and providing thumbnails.
